@@ -1,0 +1,413 @@
+/* Aviation Map Measurement Tool - Content Script Styles */
+/* All styles are scoped to avoid conflicts with host pages */
+
+/* Overlay Canvas Styles */
+#measurement-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  pointer-events: none; /* Disabled by default, enabled when in a mode */
+  cursor: default;
+}
+
+#measurement-overlay.hidden {
+  display: none;
+}
+
+/* Measurement label styles (will be created as div elements) */
+.measurement-label {
+  position: absolute;
+  background: rgba(33, 150, 243, 0.9);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: monospace;
+  pointer-events: none;
+  z-index: 1000000;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.measurement-label.angle {
+  background: rgba(76, 175, 80, 0.9);
+}
+
+.measurement-label.distance {
+  background: rgba(255, 152, 0, 0.9);
+}
+
+.measurement-point {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: rgba(33, 150, 243, 0.8);
+  border: 2px solid white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: all;
+  cursor: pointer;
+  z-index: 1000001;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.measurement-point:hover {
+  background: rgba(244, 67, 54, 0.9);
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Floating Control Panel Styles */
+#measurement-control-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: #f5f5f5;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  z-index: 2000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+#measurement-control-panel .panel-header {
+  background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+  color: white;
+  padding: 16px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: grab;
+  user-select: none;
+}
+
+#measurement-control-panel .panel-header h1 {
+  font-size: 16px;
+  margin: 0;
+  color: white;
+  text-align: left;
+  pointer-events: none;
+}
+
+#measurement-control-panel .close-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  font-size: 24px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background 0.2s;
+}
+
+#measurement-control-panel .close-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+#measurement-control-panel .status-section {
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#measurement-control-panel .section {
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 0 16px 12px 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#measurement-control-panel .instructions {
+  background: #E3F2FD;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 0 16px 16px 16px;
+  font-size: 12px;
+  color: #1565C0;
+}
+
+#measurement-control-panel .instructions p {
+  margin: 0 0 8px 0;
+}
+
+#measurement-control-panel .instructions ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+#measurement-control-panel .instructions li {
+  margin-bottom: 4px;
+}
+
+/* Magnetic Variance in Calibration Section */
+#measurement-control-panel .variance-calibration {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: #9C27B0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#measurement-control-panel .variance-label {
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+  white-space: nowrap;
+  flex: 1;
+}
+
+#measurement-control-panel .variance-input-inline {
+  width: 70px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: monospace;
+  text-align: center;
+  background: rgba(255,255,255,0.95);
+  color: #333;
+}
+
+#measurement-control-panel .variance-input-inline:focus {
+  outline: none;
+  border-color: white;
+  background: white;
+}
+
+#measurement-control-panel h2 {
+  font-size: 14px;
+  margin: 0 0 8px 0;
+  color: #666;
+  font-weight: 600;
+}
+
+#measurement-control-panel .status-message {
+  font-size: 13px;
+  color: #2196F3;
+  font-weight: 500;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+#measurement-control-panel .calibration-status {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#measurement-control-panel .calibration-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+#measurement-control-panel .calibration-label {
+  color: #666;
+  font-weight: 500;
+}
+
+#measurement-control-panel .status-value {
+  color: #999;
+}
+
+#measurement-control-panel .status-value.calibrated {
+  color: #4CAF50;
+  font-weight: 500;
+}
+
+#measurement-control-panel .btn {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+#measurement-control-panel .btn:last-child {
+  margin-bottom: 0;
+}
+
+#measurement-control-panel .btn-icon {
+  font-size: 16px;
+}
+
+#measurement-control-panel .btn-calibrate {
+  background: #2196F3;
+  color: white;
+}
+
+#measurement-control-panel .btn-calibrate:hover {
+  background: #1976D2;
+}
+
+#measurement-control-panel .btn-calibrate:active,
+#measurement-control-panel .btn-calibrate.active {
+  background: #0D47A1;
+  transform: scale(0.98);
+}
+
+#measurement-control-panel .btn-measure {
+  background: #4CAF50;
+  color: white;
+}
+
+#measurement-control-panel .btn-measure:hover:not(:disabled) {
+  background: #388E3C;
+}
+
+#measurement-control-panel .btn-measure:active:not(:disabled),
+#measurement-control-panel .btn-measure.active {
+  background: #1B5E20;
+  transform: scale(0.98);
+}
+
+#measurement-control-panel .btn-measure:disabled {
+  background: #E0E0E0;
+  color: #9E9E9E;
+  cursor: not-allowed;
+}
+
+#measurement-control-panel .btn-danger {
+  background: #F44336;
+  color: white;
+}
+
+#measurement-control-panel .btn-danger:hover {
+  background: #D32F2F;
+}
+
+#measurement-control-panel .btn-danger:active {
+  background: #B71C1C;
+  transform: scale(0.98);
+}
+
+#measurement-control-panel .btn-secondary {
+  background: #9E9E9E;
+  color: white;
+}
+
+#measurement-control-panel .btn-secondary:hover {
+  background: #757575;
+}
+
+#measurement-control-panel .btn-secondary:active {
+  background: #616161;
+  transform: scale(0.98);
+}
+
+/* Modal for control panel */
+#panel-scale-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000001;
+}
+
+#panel-scale-modal .modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 280px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+#panel-scale-modal .modal-content h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+#panel-scale-modal .modal-content p {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+#panel-scale-modal .modal-content input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+#panel-scale-modal .modal-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+#panel-scale-modal .btn-primary {
+  background: #2196F3;
+  color: white;
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#panel-scale-modal .btn-primary:hover {
+  background: #1976D2;
+}
+
+#panel-scale-modal .btn-primary:active {
+  background: #0D47A1;
+  transform: scale(0.98);
+}
+
+#panel-scale-modal .btn-secondary {
+  background: #9E9E9E;
+  color: white;
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#panel-scale-modal .btn-secondary:hover {
+  background: #757575;
+}
+
+#panel-scale-modal .btn-secondary:active {
+  background: #616161;
+  transform: scale(0.98);
+}

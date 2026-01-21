@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Aviation Map Measurement Tool",
+  "version": "1.1.0",
+  "description": "Measure true & magnetic headings and distances on maps, charts, and images",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "file:///*",
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": ["calculations.js", "overlay.js", "control-panel.js", "content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["overlay.js", "calculations.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
