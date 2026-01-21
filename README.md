@@ -1,6 +1,10 @@
-# Aviation Map Measurement Tool - Chrome Extension
+# Aviation Map Measurement Tool
 
-A Chrome extension that adds measurement capabilities to maps, charts, and images viewed in the browser. Works with PDFs, image files, and web-based maps.
+A Chrome extension that adds measurement capabilities to maps, charts, and images viewed in the browser. Measure true and magnetic headings, distances in nautical miles, and calibrate to any map orientation.
+
+Works with PDFs, image files, and web-based maps.
+
+![Aviation Map Measurement Tool in action](images/measure_tool.png)
 
 ## Features
 
@@ -28,11 +32,12 @@ A Chrome extension that adds measurement capabilities to maps, charts, and image
 
 ### Loading the Extension in Chrome
 
-1. Open Chrome and navigate to `chrome://extensions/`
-2. Enable **Developer mode** (toggle in top right corner)
-3. Click **Load unpacked**
-4. Select the `measurement-tool` directory
-5. The Aviation Map Measurement Tool icon should appear in your Chrome toolbar
+1. Clone or download this repository
+2. Open Chrome and navigate to `chrome://extensions/`
+3. Enable **Developer mode** (toggle in top right corner)
+4. Click **Load unpacked**
+5. Select the `measurement-tool` directory from this repository
+6. The Aviation Map Measurement Tool icon should appear in your Chrome toolbar
 
 ## Usage
 
@@ -86,23 +91,25 @@ The control panel shows:
 - Scale calibration status (Not calibrated / Calibrated ✓)
 - Magnetic variance status (Not set / 6° E ✓ / 10° W ✓)
 
-## File Structure
+## Repository Structure
 
 ```
-measurement-tool/
-├── manifest.json          # Extension configuration
-├── content.js            # Main coordination script
-├── overlay.js            # Canvas overlay and drawing
-├── control-panel.js      # Floating control panel UI
-├── calculations.js       # Math utilities (including magnetic heading)
-├── popup.html            # Extension popup UI
-├── popup.js              # Popup event handlers
-├── styles.css            # Styling for overlay and control panel
-├── icons/                # Extension icons
-│   ├── icon16.png
-│   ├── icon48.png
-│   └── icon128.png
-└── README.md             # This file
+aviation_map_tool/
+├── README.md              # This file
+├── LICENSE                # Apache 2.0 License
+└── measurement-tool/      # Chrome extension (load this directory)
+    ├── manifest.json      # Extension configuration
+    ├── content.js         # Main coordination script
+    ├── overlay.js         # Canvas overlay and drawing
+    ├── control-panel.js   # Floating control panel UI
+    ├── calculations.js    # Math utilities (including magnetic heading)
+    ├── popup.html         # Extension popup UI
+    ├── popup.js           # Popup event handlers
+    ├── styles.css         # Styling for overlay and control panel
+    └── icons/             # Extension icons
+        ├── icon16.png
+        ├── icon48.png
+        └── icon128.png
 ```
 
 ## Technical Details
